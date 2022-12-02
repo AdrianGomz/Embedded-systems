@@ -1,0 +1,108 @@
+// CONFIG
+
+#pragma config FOSC = HS      
+#pragma config WDTE = OFF    
+#pragma config PWRTE = ON    
+#pragma config BOREN = ON    
+#pragma config LVP = OFF     
+#pragma config CPD = OFF
+#pragma config WRT = OFF   
+#pragma config CP = OFF        
+
+#include <xc.h>
+
+#define _XTAL_FREQ 20000000
+
+#define s1 RC0
+
+#define s2 RC1
+
+#define s3 RC2
+
+#define s4 RC3
+
+
+
+void ADC_Initialize()
+
+{
+
+  ADCON0 = 0b01000001; //ADC ON and Fosc/16 is selected
+
+  ADCON1 = 0b11000000; // Internal reference voltage is selected
+
+}
+
+
+unsigned int ADC_Read(unsigned char channel)
+
+{
+
+  ADCON0 &= 0x11000101; 
+
+  ADCON0 |= channel<<3; 
+
+  __delay_ms(2); 
+
+  GO_nDONE = 1; 
+
+  while(GO_nDONE);
+  return ((ADRESH<<8)+ADRESL); 
+
+}
+
+
+void main()
+
+{ int a,b,c,d,e,f,g,h,adc; 
+
+int i = 0; 
+
+int flag =0;
+
+TRISC=0X00;
+
+PORTC=0X00;
+
+TRISD=0x00;
+
+PORTD=0X00;
+
+
+#define _XTAL_FREQ 20000000
+
+while(1)
+
+{
+
+    
+
+    if(flag>=50) 
+{
+     adc = (ADC_Read(4));
+     i = adc*0.488281;
+     flag=0;
+}
+
+flag++;
+a=i%10;
+b=i/10;
+c=b%10;
+d=b/10;
+e=d%10; 
+f=d/10;
+g=f%10;
+h=f/10;
+
+
+
+
+Lcd_Print_Char(g)
+Lcd_Print_Char(e)
+Lcd_Print_Char(c)
+Lcd_Print_Char(a)
+
+}
+
+}
+
