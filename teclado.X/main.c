@@ -71,7 +71,6 @@ void main(void) {
                 digit_nums[3]=15;
                 PORTB=nums[15];
             }
-//        __delay_ms(500);
         PORTC=0b00000010;
         if (RC4){ 
             digit_nums[3]=2;
@@ -89,7 +88,6 @@ void main(void) {
                 digit_nums[3]=0;
                 PORTB=nums[0];
             }
-//        __delay_ms(500);
         PORTC=0b00000100;
         if (RC4){ 
             digit_nums[3]=3;
@@ -124,18 +122,8 @@ void main(void) {
         else if (RC7){
                 digit_nums[3]=13;
                 PORTB=nums[13];
-            }
-//        __delay_ms(500);
-//        for(int i=0;i<50;i++){
-//            for(int j=0;j<4;j++){
-//                PORTB=nums[digit_nums[j]];
-//                PORTA=digits[j];
-                
+            }          
                 __delay_ms(5);
-//            }
-//
-//        }
-        
         
     }
     return;
